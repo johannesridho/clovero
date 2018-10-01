@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: layoutHead (pageTitle='Clovero')"></head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <header th:replace="layout :: layoutMainHeader"></header>
+    <aside th:replace="layout :: layoutSidebar"></aside>
+
+    <div class="content-wrapper">
+        <section class="content-header">
+
+        </section>
+
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3>Hints</h3>
+                        </div>
+                        <div class="box-body">
+                            <table id="hintTable" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Quiz Answer</th>
+                                    <th>Number</th>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                    <th>Original Image URL</th>
+                                    <th>Preview Image URL</th>
+                                    <th>Audio URL</th>
+                                    <th>Audio Duration</th>
+                                    <th>Created At</th>
+                                    <th>Updated At</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                            </table>
+                            <a class="btn btn-sm btn-primary btn-flat pull-left" th:href="@{/dashboard/hint/create}">Create New</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer th:replace="layout :: layoutFooter"></footer>
+</div>
+
+<div th:replace="layout :: layoutScripts"></div>
+
+<script id="actions-template" type="x-tmpl-mustache">
+    <div style="width: 180px;">
+        <a href="/dashboard/hint/update/{{id}}" class="btn btn-xs btn-info" style="margin-right: 4px;">Update</a>
+        <a href="/dashboard/hint/delete/{{id}}" class="btn btn-xs btn-danger" onclick="return Utility.showConfirmDialog()">Delete</a>
+    </div>
+</script>
+
+<script type="text/javascript">
+  var dataTable = $('#hintTable').DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: '/dashboard/hint/list',
+    scrollX: true,
+    dom: 'ltipr',
+    iDisplayLength: 200,
+    oLanguage: {
+      "sLengthMenu": 'Show <select>'+
+      '<option value="200">200</option>'+
+      '<option value="1000">1000</option>'+
+      '<option value="2000">2000</option>'+
+      '<option value="5000">5000</option>'+
+      '</select> entries'
+    },
+    order: [
+      [9, 'desc']
+    ],
+    columns: Utility.dataTableColumnsWrapper([{
+      data: 'id'
+    }, {
+      data: 'quiz.answer',
+    }, {
+      data: 'number',
+    }, {
+      data: 'type',
+    }, {
+      data: 'description'
+    }, {
+      data: 'original_image_url'
+    }, {
+      data: 'preview_image_url'
+    }, {
+      data: 'audio_url'
+    }, {
+      data: 'audio_duration'
+    }, {
+      data: 'created_at',
+      render: function (data, type, row, meta) {
+        return Utility.convertToGMT7(data);
+      }
+    }, {
+      data: 'updated_at',
+      render: function (data, type, row, meta) {
+        return Utility.convertToGMT7(data);
+      }
+    }, {
+      data: null,
+      searchable: false,
+      orderable: false,
+      render: function (data, type, row, meta) {
+        var template = $('#actions-template').html();
+        return Mustache.render(template, {
+          id: row.id
+        });
+      }
+    }])
+  });
+
+  Utility.yadcf.init('hintTable', dataTable, {
+    0: 'text',
+    1: 'text',
+    2: 'text',
+    3: 'text',
+    4: 'text',
+    5: 'text',
+    6: 'text',
+    7: 'text',
+    8: 'text',
+    9: 'range_date',
+    10: 'range_date'
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: layoutHead (pageTitle='Login | Clovero Dashboard')"></head>
+
+<body class="hold-transition login-page">
+<div class="login-box">
+    <div class="login-logo">
+        <a th:href="@{/dashboard/login}"><b>Clovero</b>Dashboard Panel</a>
+    </div>
+    <div th:if="${param.error}" class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+        <h4>
+            <i class="icon fa fa-ban"></i>Login Failed!
+        </h4>
+        Invalid username and/or password.
+    </div>
+    <div th:if="${param.logout}" class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+        <h4>
+            <i class="icon fa fa-check"></i>Logout Success!
+        </h4>
+        You have been logged out.
+    </div>
+    <div class="login-box-body">
+        <p class="login-box-msg">Sign in to start your session</p>
+
+        <form th:action="@{/dashboard/login}" method="post">
+            <div class="form-group has-feedback">
+                <input type="text" class="form-control" id="login_username" name="username" placeholder="Username" required="required" autofocus="autofocus"/>
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" class="form-control" id="login_password" name="password" placeholder="Password" required="required"/>
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat" id="login_submit">Sign In</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<div th:replace="layout :: layoutScripts"></div>
+
+</body>
+</html>

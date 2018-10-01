@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: layoutHead (pageTitle='Clovero')"></head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <header th:replace="layout :: layoutMainHeader"></header>
+    <aside th:replace="layout :: layoutSidebar"></aside>
+
+    <div class="content-wrapper">
+        <section class="content-header">
+
+        </section>
+
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3>Quiz Solver</h3>
+                        </div>
+                        <div class="box-body">
+                            <table id="quizSolverTable" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>User ID</th>
+                                    <th>User Name</th>
+                                    <th>Quiz ID</th>
+                                    <th>Quiz Answer</th>
+                                    <th>Created At</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer th:replace="layout :: layoutFooter"></footer>
+</div>
+
+<div th:replace="layout :: layoutScripts"></div>
+
+<script type="text/javascript">
+  var dataTable = $('#quizSolverTable').DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: '/dashboard/quiz-solver/list',
+    scrollX: true,
+    dom: 'ltipr',
+    iDisplayLength: 200,
+    oLanguage: {
+      "sLengthMenu": 'Show <select>'+
+      '<option value="200">200</option>'+
+      '<option value="1000">1000</option>'+
+      '<option value="2000">2000</option>'+
+      '<option value="5000">5000</option>'+
+      '</select> entries'
+    },
+    order: [
+      [5, 'desc']
+    ],
+    columns: Utility.dataTableColumnsWrapper([{
+      data: 'id'
+    }, {
+      data: 'user.id'
+    }, {
+      data: 'user.name'
+    }, {
+      data: 'quiz.id'
+    }, {
+      data: 'quiz.answer'
+    }, {
+      data: 'created_at',
+      render: function (data, type, row, meta) {
+        return Utility.convertToGMT7(data);
+      }
+    }])
+  });
+
+  Utility.yadcf.init('quizSolverTable', dataTable, {
+    0: 'text',
+    1: 'text',
+    2: 'text',
+    3: 'text',
+    4: 'text',
+    5: 'range_date'
+  });
+</script>
+
+</body>
+</html>
