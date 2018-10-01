@@ -1,0 +1,8 @@
+CREATE TABLE cache (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `key` VARCHAR(255) NOT NULL,
+    value TEXT NOT NULL,
+    expired_at BIGINT NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE (`key`)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8
