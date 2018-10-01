@@ -2,7 +2,8 @@
 
 ## How to Run
 ```
-1. Configure the mysql database (use mysql 5.7)
-2. Run command ./gradlew build
-2. Run command ./gradlew bootrun
+1. Install Java 8 and MySQL 5.7 
+2. Configure the mysql database
+3. Run command ./gradlew build
+4. Run command ./gradlew bootrun
 ```
