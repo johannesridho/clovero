@@ -1,5 +1,5 @@
 # Clovero
-Clovero is an Indonesian culture themed word guessing game. It's a fun bot game to educate Indonesian people to know more about Indonesia's culture such as local food, tradition, etc. You can play the game by adding our account @clovero. 
+Clovero is an Indonesian culture themed word guessing game. It's a fun bot game to educate Indonesian people to know more about Indonesia's culture such as local food, tradition, etc. 
 
 # Technologies 
 1. Spring framework
